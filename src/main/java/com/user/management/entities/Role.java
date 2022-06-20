@@ -4,6 +4,7 @@ package com.user.management.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,5 +19,6 @@ public class Role {
     private String roleName;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles")
+    @ToString.Exclude
     private List<User> users=new ArrayList<>();
 }
