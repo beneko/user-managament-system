@@ -31,17 +31,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findUserByUserName(String username) {
-
-        return null;
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public Role findRoleByRoleName(String roleName) {
-        return null;
+        return roleRepository.findByRoleName(roleName);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-
+        User user = this.findUserByUserName(username);
+        Role role = this.findRoleByRoleName(roleName);
+        if(user.getRoles() !=null){
+            user.getRoles().add(role);
+            role.getUsers().add(user);
+        }
+        // it is not necessary to save the user and the role because the method is transactional
+        // userRepository.save(user);
+        // roleRepository.save(role);
     }
 }
